@@ -1,0 +1,7 @@
+Binaries/*
+Saved/*
+Intermediate/*
+.vs/*
+*.VC.db
+*.sdf
+*.sln
