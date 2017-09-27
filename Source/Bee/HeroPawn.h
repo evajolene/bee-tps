@@ -22,7 +22,7 @@ public:
 	FVector2D movementInput;
 	float yaw, pitch;
 	FVector interactOffset;
-	uint8 bIsInteractInputPressed;
+	uint8 bWasInteractInputPressed;
 	uint8 bIsFireInputHeld;
 
 private:

@@ -28,7 +28,7 @@ void UPickupComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 		return;
 	}
 
-	if (heroPawn->bIsInteractInputPressed)
+	if (heroPawn->bWasInteractInputPressed)
 	{
 		FQuat facingDirection = FQuat::MakeFromEuler(FVector(0.0f, heroPawn->pitch, heroPawn->yaw));
 		FVector interactLocation = heroPawn->GetActorLocation();
@@ -38,7 +38,7 @@ void UPickupComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 		AWeaponActor* weaponActor = GetWeaponActorToPickUp(interactLocation, 35.0f);
 		PickUpWeapon(heroPawn, weaponActor);
 
-		heroPawn->bIsInteractInputPressed = 0;
+		heroPawn->bWasInteractInputPressed = 0;
 	}
 }
 
@@ -77,7 +77,7 @@ AWeaponActor* UPickupComponent::GetWeaponActorToPickUp(FVector PickupLocation, f
 void UPickupComponent::PickUpWeapon(AHeroPawn* Owner, AWeaponActor* WeaponActor)
 {
 	bool bIsPickUpValid = (WeaponActor != nullptr && WeaponActor->weaponComponent != nullptr);
-	bool bIsCarryingWeapon = Owner->weaponComponent;
+	bool bIsCarryingWeapon = (Owner->weaponComponent != nullptr);
 	if (bIsPickUpValid && !bIsCarryingWeapon)
 	{
 		Owner->weaponComponent = NewObject<UWeaponComponent>(GetOwner(), WeaponActor->weaponComponent->GetDefaultObject()->GetClass());

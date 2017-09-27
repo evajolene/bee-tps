@@ -75,7 +75,7 @@ void AHeroController::OnInteractInput()
 {
 	if (heroPawn != nullptr)
 	{
-		heroPawn->bIsInteractInputPressed = 1;
+		heroPawn->bWasInteractInputPressed = 1;
 	}
 }
 
