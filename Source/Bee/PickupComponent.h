@@ -17,8 +17,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-public:	
 	//Returns nullptr if there's none in area to pick up.
 	class AWeaponActor* GetWeaponActorToPickUp(FVector PickupLocation, float PickupRadius);
+	void PickUpWeapon(class AHeroPawn* Owner, AWeaponActor* WeaponActor);
 };

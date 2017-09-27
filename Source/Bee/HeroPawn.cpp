@@ -124,16 +124,6 @@ void AHeroPawn::Tick(float DeltaTime)
 	{
 		weaponComponent->Fire(actorLocation, facingDirection.GetForwardVector());
 	}
-
-	if (bIsInteractInputPressed)
-	{
-		FVector interactLocation = actorLocation;
-		interactLocation.Z += interactOffset.Z;
-		interactLocation += facingDirection.GetForwardVector() * interactOffset.X + facingDirection.GetRightVector() * interactOffset.Y;
-		AWeaponActor* weaponActor = pickupComponent->GetWeaponActorToPickUp(interactLocation, 35.0f);
-		PickUpWeapon(weaponActor);
-		bIsInteractInputPressed = 0;
-	}
 }
 
 FVector2D AHeroPawn::CalculateXYVelocity(FVector2D CurrentVelocity, float DeltaTime)
@@ -164,14 +154,4 @@ bool AHeroPawn::GetIfNearGroundBySweeping(FVector CurrentLocation, FHitResult& H
 {
 	bool bHitGround = UTrace::SweepWorld(this, CurrentLocation, CurrentLocation + FVector(0, 0, -1000.0f), HitResult, rigidbodyRadius * 0.375f);
 	return (bHitGround && HitResult.Distance <= offsetFromGround);
-}
-
-void AHeroPawn::PickUpWeapon(AWeaponActor* WeaponActor)
-{
-	bool bIsPickUpValid = (WeaponActor != nullptr && WeaponActor->weaponComponent != nullptr);
-	if (weaponComponent == nullptr && bIsPickUpValid)
-	{
-		weaponComponent = NewObject<UWeaponComponent>(this, WeaponActor->weaponComponent->GetDefaultObject()->GetClass());
-		weaponComponent->RegisterComponent();
-	}
 }

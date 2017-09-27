@@ -50,6 +50,4 @@ private:
 	FVector2D CalculateXYVelocity(FVector2D CurrentVelocity, float DeltaTime);
 
 	bool GetIfNearGroundBySweeping(FVector CurrentLocation, FHitResult& HitResult);
-
-	void PickUpWeapon(class AWeaponActor* WeaponActor);
 };
