@@ -31,6 +31,11 @@ void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 		return;
 	}
 
+	if (heroPawn->bIsFireInputHeld)
+	{
+		Fire(heroPawn->GetActorLocation(), heroPawn->fireTarget - heroPawn->GetActorLocation());
+	}
+
 	fireTime -= DeltaTime;
 }
 
@@ -43,6 +48,7 @@ void UWeaponComponent::Fire(FVector StartingLocation, FVector Direction)
 
 	FTransform bulletTransform = FTransform(FQuat::Identity, StartingLocation, FVector::OneVector);
 	ABulletActor* bulletActor = GetWorld()->SpawnActor<ABulletActor>(bulletActorToSpawn->GetDefaultObject()->GetClass(), bulletTransform);
+	Direction.Normalize();
 	bulletActor->velocity = Direction * bulletSpeed;
 	fireTime = fireDelay;
 	ammo--;
