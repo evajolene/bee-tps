@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "WeaponActor.h"
 #include "BulletActor.h"
+#include "Engine/StaticMesh.h"
 
 UWeaponComponent::UWeaponComponent()
 {
@@ -45,8 +46,9 @@ AWeaponActor* UWeaponComponent::CloneAsWeaponPickup(FVector Location)
 {
 	FTransform transform = FTransform(FQuat::Identity, Location, FVector::OneVector);
 	AWeaponActor* weaponActor = GetWorld()->SpawnActor<AWeaponActor>(AWeaponActor::StaticClass(), transform);
-	weaponActor->weaponComponent = NewObject<UWeaponComponent>(weaponActor, this->GetClass());
+	weaponActor->weaponComponent = NewObject<UWeaponComponent>(weaponActor, GetClass());
 	weaponActor->weaponComponent->RegisterComponent();
-	weaponActor->meshComponent->SetStaticMesh(weaponActor->weaponComponent->mesh);
+	weaponActor->meshComponent->SetStaticMesh(mesh);
+	weaponActor->ammo = ammo;
 	return weaponActor;
 }
