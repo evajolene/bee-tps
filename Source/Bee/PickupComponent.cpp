@@ -88,5 +88,6 @@ void UPickupComponent::PickUpWeapon(AHeroPawn* Owner, AWeaponActor* WeaponActor)
 		{
 			Owner->weaponComponent->AddTickPrerequisiteComponent(aimComponent);
 		}
+		WeaponActor->Destroy();
 	}
 }
