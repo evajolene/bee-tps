@@ -23,6 +23,8 @@ protected:
 	float fireTime = 0.0f;
 
 public:
+	uint16 ammo;
+
 	UWeaponComponent();
 
 protected:

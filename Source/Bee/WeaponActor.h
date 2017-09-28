@@ -15,6 +15,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Component")
 		TSubclassOf<class UWeaponComponent> weaponComponent;
 
+	UPROPERTY(EditDefaultsOnly)
+		uint16 ammo;
+
 	AWeaponActor();
 
 protected:

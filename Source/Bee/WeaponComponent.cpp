@@ -7,6 +7,8 @@
 UWeaponComponent::UWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+
+	ammo = 0;
 }
 
 void UWeaponComponent::BeginPlay()
