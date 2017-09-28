@@ -27,14 +27,16 @@ void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UWeaponComponent::Fire(FVector StartingLocation, FVector Direction)
 {
-	if (bulletActorToSpawn == nullptr || fireTime > 0.0f)
+	if (bulletActorToSpawn == nullptr || fireTime > 0.0f || ammo == 0)
 	{
 		return;
 	}
+
 	FTransform bulletTransform = FTransform(FQuat::Identity, StartingLocation, FVector::OneVector);
 	ABulletActor* bulletActor = GetWorld()->SpawnActor<ABulletActor>(bulletActorToSpawn->GetDefaultObject()->GetClass(), bulletTransform);
 	bulletActor->velocity = Direction * bulletSpeed;
 	fireTime = fireDelay;
+	ammo--;
 }
 
 void UWeaponComponent::Reload()
