@@ -2,6 +2,7 @@
 
 #include "WeaponComponent.h"
 #include "Engine/World.h"
+#include "HeroPawn.h"
 #include "WeaponActor.h"
 #include "BulletActor.h"
 #include "Engine/StaticMesh.h"
@@ -16,11 +17,19 @@ UWeaponComponent::UWeaponComponent()
 void UWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//This component can be held by various classes, but needs our custom pawn class to tick.
+	heroPawn = Cast<AHeroPawn>(GetOwner());
 }
 
 void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (heroPawn == nullptr)
+	{
+		return;
+	}
 
 	fireTime -= DeltaTime;
 }

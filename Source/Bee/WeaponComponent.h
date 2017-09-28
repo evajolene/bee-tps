@@ -12,6 +12,8 @@ class BEE_API UWeaponComponent : public UActorComponent
 	GENERATED_BODY()
 
 protected:
+	class AHeroPawn* heroPawn;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSubclassOf<class ABulletActor> bulletActorToSpawn;
 
