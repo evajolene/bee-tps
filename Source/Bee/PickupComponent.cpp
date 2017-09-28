@@ -78,16 +78,33 @@ AWeaponActor* UPickupComponent::GetWeaponActorToPickUp(FVector PickupLocation, f
 void UPickupComponent::PickUpWeapon(AHeroPawn* Owner, AWeaponActor* WeaponActor)
 {
 	bool bIsPickUpValid = (WeaponActor != nullptr && WeaponActor->weaponComponent != nullptr);
-	bool bIsCarryingWeapon = (Owner->weaponComponent != nullptr);
-	if (bIsPickUpValid && !bIsCarryingWeapon)
+	
+	if (bIsPickUpValid)
 	{
-		Owner->weaponComponent = NewObject<UWeaponComponent>(GetOwner(), WeaponActor->weaponComponent->GetDefaultObject()->GetClass());
-		Owner->weaponComponent->RegisterComponent();
-		UHeroAimComponent* aimComponent = Owner->FindComponentByClass<UHeroAimComponent>();
-		if (aimComponent)
+		UClass* weaponToPickUpClass = WeaponActor->weaponComponent->GetDefaultObject()->GetClass();
+
+		//Get rid of our weapon if it's a different weapon to pick up.
+		if (Owner->weaponComponent && weaponToPickUpClass != Owner->weaponComponent->GetClass())
 		{
-			Owner->weaponComponent->AddTickPrerequisiteComponent(aimComponent);
+			Owner->weaponComponent->DestroyComponent();
+			Owner->weaponComponent = nullptr;
 		}
+
+		//Pick up a new weapon if we just got rid of one, or just don't have one.
+		if (Owner->weaponComponent == nullptr)
+		{
+			Owner->weaponComponent = NewObject<UWeaponComponent>(GetOwner(), weaponToPickUpClass);
+			Owner->weaponComponent->RegisterComponent();
+
+			UHeroAimComponent* aimComponent = Owner->FindComponentByClass<UHeroAimComponent>();
+			if (aimComponent)
+			{
+				Owner->weaponComponent->AddTickPrerequisiteComponent(aimComponent);
+			}
+		}
+
+		Owner->weaponComponent->ammo += WeaponActor->ammo;
+
 		WeaponActor->Destroy();
 	}
 }
