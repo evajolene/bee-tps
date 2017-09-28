@@ -4,6 +4,7 @@
 #include "HeroPawn.h"
 #include "GameFramework/PlayerController.h"
 #include "ThirdPersonCameraActor.h"
+#include "Trace.h"
 
 UHeroAimComponent::UHeroAimComponent()
 {
@@ -37,7 +38,13 @@ void UHeroAimComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 		FVector location, direction;
 		if (playerController->DeprojectMousePositionToWorld(location, direction))
 		{
-			heroPawn->fireTarget = location + direction * 100.0f;
+			FHitResult hitResult;
+			FVector fireAtLocation = location + direction * 1000.0f;
+			if (UTrace::SweepWorld(heroPawn, heroPawn->GetActorLocation(), fireAtLocation, hitResult, 2.5f))
+			{
+				fireAtLocation = hitResult.ImpactPoint;
+			}
+			heroPawn->fireTarget = fireAtLocation;
 		}
 	}
 }
