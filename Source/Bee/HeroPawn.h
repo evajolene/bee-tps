@@ -18,7 +18,6 @@ private:
 public:
 	class AThirdPersonCameraActor* cameraActor;
 	class UWeaponComponent* weaponComponent;
-	class UPickupComponent* pickupComponent;
 
 	AHeroPawn();
 	virtual void PostInitializeComponents() override;

@@ -17,7 +17,7 @@ void UHeroAimComponent::BeginPlay()
 	heroPawn = Cast<AHeroPawn>(GetOwner());
 	if (heroPawn && heroPawn->cameraActor)
 	{
-		//Let aim component tick after pawn has moved.
+		//Let aim component tick after camera has moved.
 		AddTickPrerequisiteActor(heroPawn->cameraActor);
 	}
 }

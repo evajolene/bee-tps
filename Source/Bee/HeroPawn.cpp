@@ -5,7 +5,6 @@
 #include "DrawDebugHelpers.h"
 #include "Components/SphereComponent.h"
 #include "Trace.h"
-#include "PickupComponent.h"
 #include "WeaponComponent.h"
 #include "WeaponActor.h"
 #include "GameFramework/Controller.h"
@@ -48,7 +47,6 @@ void AHeroPawn::BeginPlay()
 	rigidbody->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
 
 	weaponComponent = FindComponentByClass<UWeaponComponent>();
-	pickupComponent = FindComponentByClass<UPickupComponent>();
 }
 
 void AHeroPawn::Tick(float DeltaTime)
