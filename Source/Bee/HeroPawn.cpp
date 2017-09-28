@@ -34,6 +34,8 @@ void AHeroPawn::PostInitializeComponents()
 		cameraActor = GetWorld()->SpawnActor<AThirdPersonCameraActor>(cameraActorToSpawn->GetDefaultObject()->GetClass(), FTransform::Identity);
 		cameraActor->heroPawn = this;
 	}
+
+	weaponComponent = FindComponentByClass<UWeaponComponent>();
 }
 
 void AHeroPawn::BeginPlay()
@@ -45,8 +47,6 @@ void AHeroPawn::BeginPlay()
 	xyVelocity = FVector2D(0, 0);
 	zVelocity = 0.0f;
 	rigidbody->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
-
-	weaponComponent = FindComponentByClass<UWeaponComponent>();
 }
 
 void AHeroPawn::Tick(float DeltaTime)
