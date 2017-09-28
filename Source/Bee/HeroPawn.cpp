@@ -1,6 +1,7 @@
 // Copyright 2017 Eva Jolene.
 
 #include "HeroPawn.h"
+#include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Components/SphereComponent.h"
 #include "Trace.h"
@@ -23,6 +24,17 @@ AHeroPawn::AHeroPawn()
 	sphereRigidbody->SetEnableGravity(false);
 
 	rigidbody = sphereRigidbody;
+}
+
+void AHeroPawn::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (cameraActorToSpawn)
+	{
+		cameraActor = GetWorld()->SpawnActor<AThirdPersonCameraActor>(cameraActorToSpawn->GetDefaultObject()->GetClass(), FTransform::Identity);
+		cameraActor->heroPawn = this;
+	}
 }
 
 void AHeroPawn::BeginPlay()

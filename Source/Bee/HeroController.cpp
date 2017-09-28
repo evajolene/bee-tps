@@ -2,6 +2,7 @@
 
 #include "HeroController.h"
 #include "HeroPawn.h"
+#include "ThirdPersonCameraActor.h"
 
 AHeroController::AHeroController(const FObjectInitializer& ObjectInitializer) : APlayerController(ObjectInitializer)
 {
@@ -16,6 +17,7 @@ void AHeroController::BeginPlay()
 	if (pawn != nullptr)
 	{
 		heroPawn = Cast<AHeroPawn>(pawn);
+		SetViewTarget(heroPawn->cameraActor);
 	}
 }
 

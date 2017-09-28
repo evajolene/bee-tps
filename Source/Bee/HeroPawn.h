@@ -11,11 +11,17 @@ class BEE_API AHeroPawn : public APawn
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(EditDefaultsOnly)
+		TSubclassOf<class AThirdPersonCameraActor> cameraActorToSpawn;
+
 public:
+	class AThirdPersonCameraActor* cameraActor;
 	class UWeaponComponent* weaponComponent;
 	class UPickupComponent* pickupComponent;
 
 	AHeroPawn();
+	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
@@ -23,6 +29,7 @@ public:
 	float yaw, pitch;
 	FVector interactOffset;
 	uint8 bWasInteractInputPressed;
+	FVector fireTarget;
 	uint8 bIsFireInputHeld;
 
 private:
