@@ -34,12 +34,12 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void Fire(FVector StartingLocation, FVector Direction);
+	void Reload();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	class AWeaponActor* CloneAsWeaponPickup(FVector Location);
-
-	void Fire(FVector StartingLocation, FVector Direction);
-	void Reload();
 };

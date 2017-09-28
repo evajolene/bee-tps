@@ -128,12 +128,6 @@ void AHeroPawn::Tick(float DeltaTime)
 		16,
 		FColor(255, 255, 255)
 	);
-	
-	FQuat facingDirection = FQuat::MakeFromEuler(FVector(0.0f, pitch, yaw));
-	if (weaponComponent && bIsFireInputHeld)
-	{
-		weaponComponent->Fire(actorLocation, facingDirection.GetForwardVector());
-	}
 }
 
 FVector2D AHeroPawn::CalculateXYVelocity(FVector2D CurrentVelocity, float DeltaTime)
