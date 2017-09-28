@@ -3,5 +3,7 @@ Saved/*
 Intermediate/*
 .vs/*
 *.VC.db
+*.VC.opendb
 *.sdf
 *.sln
+*_BuiltData.uasset
