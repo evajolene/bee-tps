@@ -5,6 +5,7 @@
 #include "HeroPawn.h"
 #include "WeaponActor.h"
 #include "WeaponComponent.h"
+#include "HeroAimComponent.h"
 #include "EngineUtils.h"
 
 UPickupComponent::UPickupComponent()
@@ -82,5 +83,10 @@ void UPickupComponent::PickUpWeapon(AHeroPawn* Owner, AWeaponActor* WeaponActor)
 	{
 		Owner->weaponComponent = NewObject<UWeaponComponent>(GetOwner(), WeaponActor->weaponComponent->GetDefaultObject()->GetClass());
 		Owner->weaponComponent->RegisterComponent();
+		UHeroAimComponent* aimComponent = Owner->FindComponentByClass<UHeroAimComponent>();
+		if (aimComponent)
+		{
+			Owner->weaponComponent->AddTickPrerequisiteComponent(aimComponent);
+		}
 	}
 }
