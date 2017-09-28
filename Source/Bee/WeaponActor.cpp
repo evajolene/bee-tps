@@ -1,20 +1,32 @@
 // Copyright 2017 Eva Jolene.
 
 #include "WeaponActor.h"
+#include "WeaponComponent.h"
+#include "Engine/StaticMesh.h"
 
-// Sets default values
 AWeaponActor::AWeaponActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	meshComponent = FindComponentByClass<UStaticMeshComponent>();
+	if (meshComponent == nullptr)
+	{
+		meshComponent = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mesh"));
+		RootComponent = meshComponent;
+		meshComponent->RegisterComponent();
+	}
 }
 
-// Called when the game starts or when spawned
 void AWeaponActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (weaponComponentToAdd)
+	{
+		weaponComponent = NewObject<UWeaponComponent>(this, weaponComponentToAdd->GetDefaultObject()->GetClass());
+		weaponComponent->RegisterComponent();
+		meshComponent->SetStaticMesh(weaponComponent->mesh);
+	}
 }
 
 // Called every frame

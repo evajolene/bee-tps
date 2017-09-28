@@ -23,6 +23,9 @@ protected:
 	float fireTime = 0.0f;
 
 public:
+	UPROPERTY(EditDefaultsOnly, Category = "Mesh")
+		UStaticMesh* mesh;
+
 	uint16 ammo;
 
 	UWeaponComponent();
@@ -34,6 +37,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	class AWeaponActor* CloneAsWeaponPickup(FVector Location);
 
 	void Fire(FVector StartingLocation, FVector Direction);
 	void Reload();

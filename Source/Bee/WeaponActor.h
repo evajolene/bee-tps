@@ -10,10 +10,14 @@ UCLASS()
 class BEE_API AWeaponActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:
+
+protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Component")
-		TSubclassOf<class UWeaponComponent> weaponComponent;
+		TSubclassOf<class UWeaponComponent> weaponComponentToAdd;
+
+public:
+	UStaticMeshComponent* meshComponent;
+	UWeaponComponent* weaponComponent;
 
 	UPROPERTY(EditDefaultsOnly)
 		uint16 ammo;
@@ -21,13 +25,8 @@ public:
 	AWeaponActor();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
-
-	
-	
 };

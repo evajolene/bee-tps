@@ -2,6 +2,7 @@
 
 #include "WeaponComponent.h"
 #include "Engine/World.h"
+#include "WeaponActor.h"
 #include "BulletActor.h"
 
 UWeaponComponent::UWeaponComponent()
@@ -38,4 +39,14 @@ void UWeaponComponent::Fire(FVector StartingLocation, FVector Direction)
 void UWeaponComponent::Reload()
 {
 
+}
+
+AWeaponActor* UWeaponComponent::CloneAsWeaponPickup(FVector Location)
+{
+	FTransform transform = FTransform(FQuat::Identity, Location, FVector::OneVector);
+	AWeaponActor* weaponActor = GetWorld()->SpawnActor<AWeaponActor>(AWeaponActor::StaticClass(), transform);
+	weaponActor->weaponComponent = NewObject<UWeaponComponent>(weaponActor, this->GetClass());
+	weaponActor->weaponComponent->RegisterComponent();
+	weaponActor->meshComponent->SetStaticMesh(weaponActor->weaponComponent->mesh);
+	return weaponActor;
 }

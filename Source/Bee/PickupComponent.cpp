@@ -81,11 +81,12 @@ void UPickupComponent::PickUpWeapon(AHeroPawn* Owner, AWeaponActor* WeaponActor)
 	
 	if (bIsPickUpValid)
 	{
-		UClass* weaponToPickUpClass = WeaponActor->weaponComponent->GetDefaultObject()->GetClass();
+		UClass* weaponToPickUpClass = WeaponActor->weaponComponent->GetClass();
 
 		//Get rid of our weapon if it's a different weapon to pick up.
 		if (Owner->weaponComponent && weaponToPickUpClass != Owner->weaponComponent->GetClass())
 		{
+			Owner->weaponComponent->CloneAsWeaponPickup(Owner->GetActorLocation());
 			Owner->weaponComponent->DestroyComponent();
 			Owner->weaponComponent = nullptr;
 		}
