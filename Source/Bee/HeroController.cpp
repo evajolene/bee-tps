@@ -14,9 +14,9 @@ void AHeroController::BeginPlay()
 	Super::BeginPlay();
 
 	APawn* pawn = GetPawn();
-	if (pawn != nullptr)
+	heroPawn = Cast<AHeroPawn>(pawn);
+	if (heroPawn)
 	{
-		heroPawn = Cast<AHeroPawn>(pawn);
 		SetViewTarget(heroPawn->cameraActor);
 	}
 }
